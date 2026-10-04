@@ -63,6 +63,8 @@ header.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-inde
 .frame.tilt{animation-play-state:paused}
 @keyframes fl{50%{translate:0 -9px}}
 .frame img{width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block}
+.frame.noimg{display:grid;place-items:center;background:linear-gradient(160deg,var(--panel2),var(--panel))}
+.frame.noimg::before{content:'RS';font:500 5rem 'Fraunces',serif;color:var(--gold)}
 .glare{position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(244,234,217,.22),transparent 55%);transition:opacity .25s}
 .frame:hover .glare{opacity:1}
 /* sections */
@@ -150,9 +152,9 @@ footer{padding:28px 0;border-top:1px solid var(--line);color:var(--mute);font-si
   <h2 class="rv">Research-minded, with a taste for clean data.</h2>
   <div class="about rv">
     <div>
-    <p>I am a Computer Science and Engineering graduate from Sylhet International University with strong analytical, problem-solving and communication skills. During my degree I worked on research, data handling and documentation, including a co-authored thesis on Bengali political sentiment analysis that reached 93.08 percent classification accuracy.</p>
-    <p>Beyond the classroom, I have volunteered at the Bangladesh Physics Olympiad and served as an executive of the CSE Society, which strengthened my leadership, teamwork and organizational skills. I am adaptable and detail-oriented, and I am eager to apply these skills in a professional environment where I can contribute to the team and keep learning.</p>
-  </div>
+      <p>I am a Computer Science and Engineering graduate from Sylhet International University with strong analytical, problem-solving and communication skills. During my degree I worked on research, data handling and documentation, including a co-authored thesis on Bengali political sentiment analysis that reached 93.08 percent classification accuracy.</p>
+      <p>Beyond the classroom, I have volunteered at the Bangladesh Physics Olympiad and served as an executive of the CSE Society, which strengthened my leadership, teamwork and organizational skills. I am adaptable and detail-oriented, and I am eager to apply these skills in a professional environment where I can contribute to the team and keep learning.</p>
+    </div>
     <div class="edu">
       <div><h3>B.Sc. in Computer Science and Engineering</h3><span class="s">Sylhet International University</span><br><span class="m">Nov 2022 – Aug 2026</span></div>
       <div><h3>Higher School Certificate (Science)</h3><span class="s">Shah Khurram Degree College</span><br><span class="m">2019 – 2021</span></div>
@@ -224,6 +226,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);color:var(--mute);font-si
 
 <section class="sec" id="contact">
   <div class="kicker rv">Contact</div>
+  <h2 class="rv">Connect</h2>
   <div class="rv">
     <a class="mail" href="mailto:redoysarker36@gmail.com">redoysarker36@gmail.com</a>
     <div class="soc">
@@ -238,6 +241,15 @@ footer{padding:28px 0;border-top:1px solid var(--line);color:var(--mute);font-si
 
 <script>
 const frame=document.getElementById('frame');
+// Photo fallback: tries other common names, then shows a placeholder
+const photo=document.getElementById('photo');
+const alts=['redoy.jpg','redoy.png','Redoy.jpeg','Redoy.jpg','images/photo.jpg'];
+let ai=0;
+photo.onerror=()=>{
+  if(ai<alts.length){photo.src=alts[ai++]}
+  else{photo.style.display='none';frame.classList.add('noimg')}
+};
+if(photo.complete&&photo.naturalWidth===0)photo.onerror();
 // 3D tilt on the photo
 frame.addEventListener('mousemove',e=>{const b=frame.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;
   frame.classList.add('tilt');frame.style.transform=`rotateY(${(x-.5)*14}deg) rotateX(${(.5-y)*14}deg)`;
