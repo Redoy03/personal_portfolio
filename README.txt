@@ -1,4 +1,4 @@
-# Redoy Sarker · Portfolio
+# Redoy Sarker
 
 Personal portfolio website of **Redoy Sarker**, Computer Science and Engineering graduate and machine learning researcher from Sylhet, Bangladesh.
 
